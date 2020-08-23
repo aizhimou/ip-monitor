@@ -1,7 +1,6 @@
 package best.asimov.couriers.ip;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.mail.MailUtil;
 import cn.hutool.http.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +14,30 @@ public class IpChangeCouriers {
     /**
      * logger
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger("IpChangeCouriers.class");
+    private static final Logger LOGGER = LoggerFactory.getLogger(IpChangeCouriers.class);
     /**
-     * init ip address
+     * 消息标题
+     */
+    private static final String title = "IP变更通知";
+    /**
+     * 自动存档
+     */
+    private static final String archive = "isArchive=1";
+    /**
+     * bark base url
+     */
+    private static final String url = "https://api.day.app/Uo4CwAwHW84Tm5TzXv436C";
+    /**
+     * 获取 IP 地址
+     */
+    private static final String getIpUrl = "whatismyip.akamai.com";
+    /**
+     * 初始 IP 地址
      */
     String lastIpAddress = "0.0.0.0";
 
     public void ipNotification() {
-        String nowIpAddress = HttpUtil.createGet("whatismyip.akamai.com").execute().body();
+        String nowIpAddress = HttpUtil.createGet(getIpUrl).execute().body();
         LOGGER.info("====================");
         LOGGER.info("last ip address: {}; new ip address: {}.", lastIpAddress, nowIpAddress);
         if (!lastIpAddress.equals(nowIpAddress)) {
@@ -32,9 +47,11 @@ public class IpChangeCouriers {
     }
 
     void sentEmail(String lastIpAddress, String nowIpAddress) {
-        LOGGER.info("start sending email...");
-        MailUtil.send("1224513626@qq.com", "IP NOTIFICATION",
-                        StrUtil.format("上一个IP地址为：{}，当前IP地址为{}。", lastIpAddress, nowIpAddress), false);
-        LOGGER.info("send email success...");
+        LOGGER.info("start sending message...");
+        String content = StrUtil.format("上一个IP地址为{};当前IP地址为{}", lastIpAddress, nowIpAddress);
+        String finalUrl = StrUtil.format("{}/{}/{}?{}", url, title, content, archive);
+        LOGGER.info(finalUrl);
+        HttpUtil.get(finalUrl);
+        LOGGER.info("send message success...");
     }
 }
