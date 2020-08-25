@@ -41,14 +41,14 @@ public class IpChangeCouriers {
         LOGGER.info("====================");
         LOGGER.info("last ip address: {}; new ip address: {}.", lastIpAddress, nowIpAddress);
         if (!lastIpAddress.equals(nowIpAddress)) {
-            sentEmail(lastIpAddress, nowIpAddress);
+            sentMessage(lastIpAddress, nowIpAddress);
         }
         lastIpAddress = nowIpAddress;
     }
 
-    void sentEmail(String lastIpAddress, String nowIpAddress) {
+    void sentMessage(String lastIpAddress, String nowIpAddress) {
         LOGGER.info("start sending message...");
-        String content = StrUtil.format("上一个IP地址为{};当前IP地址为{}", lastIpAddress, nowIpAddress);
+        String content = StrUtil.format("{} -> {}", lastIpAddress, nowIpAddress);
         String finalUrl = StrUtil.format("{}/{}/{}?{}", url, title, content, archive);
         LOGGER.info(finalUrl);
         HttpUtil.get(finalUrl);
