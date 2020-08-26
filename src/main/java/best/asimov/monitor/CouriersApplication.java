@@ -1,4 +1,4 @@
-package best.asimov.couriers;
+package best.asimov.monitor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

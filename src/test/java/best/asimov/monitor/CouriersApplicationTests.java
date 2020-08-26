@@ -1,6 +1,5 @@
-package best.asimov.couriers;
+package best.asimov.monitor;
 
-import best.asimov.couriers.ip.IpChangeCourier;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
