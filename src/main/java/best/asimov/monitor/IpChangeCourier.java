@@ -41,7 +41,7 @@ public class IpChangeCourier {
      */
     String lastIpAddress = "127.0.0.1";
 
-    @Scheduled(cron = "0 0/30 0 * * ? *")
+    @Scheduled(cron = "0 0/30 0 * * ?")
     public void ipNotification() {
         String nowIpAddress = HttpUtil.createGet(getIpUrl).execute().body();
         LOGGER.info("====================");
@@ -54,7 +54,7 @@ public class IpChangeCourier {
 
     void sentMessage(String lastIpAddress, String nowIpAddress) {
         LOGGER.info("start sending message...");
-        String content = StrUtil.format("上一个IP地址是:{} \n 现在的IP地址是:{}", lastIpAddress, nowIpAddress);
+        String content = StrUtil.format("上一个IP地址是:{}\n现在的IP地址是:{}", lastIpAddress, nowIpAddress);
         String finalUrl = StrUtil.format("{}/{}/{}?{}=1", url, title, content, archive);
         HttpUtil.get(finalUrl);
         LOGGER.info("send message success...");
