@@ -1,2 +1,0 @@
-[best.asimov.couriers.ip]
-IpChangeCouriers.ipNotification = */30 * * * *

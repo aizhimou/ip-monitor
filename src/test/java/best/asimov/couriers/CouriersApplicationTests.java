@@ -1,6 +1,6 @@
 package best.asimov.couriers;
 
-import best.asimov.couriers.ip.IpChangeCouriers;
+import best.asimov.couriers.ip.IpChangeCourier;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,8 +9,8 @@ class CouriersApplicationTests {
 
     @Test
     void ipChangeNotificationTest() {
-        IpChangeCouriers ipChangeCouriers = new IpChangeCouriers();
-        ipChangeCouriers.ipNotification();
+        IpChangeCourier ipChangeCourier = new IpChangeCourier();
+        ipChangeCourier.ipNotification();
     }
 
 }
