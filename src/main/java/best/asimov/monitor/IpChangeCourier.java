@@ -41,7 +41,7 @@ public class IpChangeCourier {
      */
     String lastIpAddress = "127.0.0.1";
 
-    @Scheduled(cron = "0 0/30 0 * * ?")
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void ipNotification() {
         String nowIpAddress = HttpUtil.createGet(getIpUrl).execute().body();
         LOGGER.info("====================");
